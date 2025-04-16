@@ -1,1 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Video Website</title>
+</head>
+<body>
+    <h1>Welcome to my video website!</h1>
+    <p>Here you will find my amazing videos.</p>
 
+    <h2>Uploaded Videos</h2>
+    {% if videos %}
+    <ul>
+        {% for video in videos %}
+        <li>
+            <video width="320" height="240" controls>
+                <source src="{{ url_for('static', filename=video) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No videos uploaded yet.</p>
+    {% endif %}
+
+    <h2>Upload a New Video</h2>
+    <form method="POST" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="video_file" required>
+        <input type="submit" value="Upload Video">
+    </form>
+</body>
+</html>
